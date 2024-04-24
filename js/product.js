@@ -7,15 +7,15 @@ const hamMenuElement = document.querySelector('.ham-menu')
 const mainMenuElement = document.querySelector('.main-menu')
 const subscribeElement = document.querySelector('.subscribe')
 subscribeElement.style.backgroundImage =  `url( ./images/contact.png)`
+const loader = document.querySelector('.loader');
 
 document.addEventListener('DOMContentLoaded', function () {
-  var loader = document.querySelector('.loader');
   loader.style.display = 'block'; // 显示 loading 动画
 
   // 在加载完成后隐藏 loading 动画
-  window.onload = function () {
-    loader.style.display = 'none';
-  };
+  // window.onload = function () {
+  //   loader.style.display = 'none';
+  // };
 });
 
 // console.log('sub',)
@@ -54,6 +54,7 @@ const getProducts = async() =>{
     })
     catElement.innerHTML = catList
     listElement.innerHTML = products
+    loader.style.display = 'none';
   } catch (error) {
     console.log('getProduct', error)
   }
