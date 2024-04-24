@@ -10,11 +10,6 @@ const update_form = document.getElementById('update_form');
 const loader = document.querySelector('.loader');
 document.addEventListener('DOMContentLoaded', function () {
   loader.style.display = 'block'; // 显示 loading 动画
-
-  // 在加载完成后隐藏 loading 动画
-  // window.onload = function () {
-  //   loader.style.display = 'none';
-  // };
 });
 
 // create form
@@ -31,18 +26,15 @@ xbtn.addEventListener('click', ()=>{
 //create product 
 create_form.addEventListener('submit', function(event) {
   event.preventDefault(); // 阻止表單的默認提交行為
-  console.log('submit')
   let data = {}
   create_form.querySelectorAll('input').forEach(input => {
     data[input.name] = input.value
   })
-  console.log(data)
   createProduct(data);
 })
 //update product 
 update_form.addEventListener('submit', function(event) {
   event.preventDefault(); // 阻止表單的默認提交行為
-  console.log('submit')
   let data = {}
   update_form.querySelectorAll('input').forEach(input => {
     data[input.name] = input.value
@@ -73,13 +65,10 @@ table.addEventListener('click', (event)=>{
       }
     })
     update_form.setAttribute('data-id', productId)
-    // console.log(update_form)
   }
-
   if(action==='delete'){
     deleteProduct(productId)
   }
-  // deleteProduct(productId)
 })
 const getProducts = async() =>{
   try {
@@ -87,7 +76,6 @@ const getProducts = async() =>{
     const result = await response.json()
     let datas = ''
     result.data.forEach((item, i) =>{
-      // const newRow = table.insertRow(i + 1); // 插入在第一個 tr 的後面
       const newTr= document.createElement('tr')
       newTr.setAttribute('data-id', item._id)
       newTr.innerHTML = `
@@ -104,8 +92,6 @@ const getProducts = async() =>{
           <button data-action='delete'>刪除</button>
         </td>
       `
-      // console.log(newTr)          
-      // console.log(item._id)
       table.appendChild(newTr) 
       loader.style.display = 'none';
     })
@@ -133,7 +119,6 @@ const createProduct = async(data) =>{
         "unit": data.unit,
     }) // 或者使用 formData，如果你在前端使用 FormData 對象
     })
-    console.log(result)
     window.location.reload()
   } catch (error) {
     console.log('createProduct', error)
@@ -163,11 +148,9 @@ const updateProduct = async(data) =>{
     console.log('createProduct', error)
   }
 };
-// updateProduct(data)
 
 const deleteProduct = async(productId) =>{
   try {
-    // let id = '661fb01d12589692dc2f5010'
     await fetch(`${SERVER_URL}/${productId}`, {
       method: 'DELETE'
     })
@@ -176,5 +159,4 @@ const deleteProduct = async(productId) =>{
     console.log('createProduct', error)
   }
 };
-// deleteProduct(productId);
 console.log('admin')
